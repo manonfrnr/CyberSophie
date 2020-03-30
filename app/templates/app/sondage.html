@@ -5,24 +5,29 @@
     <title>CyberSophie</title>
 </head>
 <body>
-<div>
-    {% for q in questions %}
-        <div>
+<form action="/complete" method="post"> {% csrf_token %}
+    <div style="margin:10px 10px 10px 10px">
+        {% for q in questions %}
             <div>
-                {{ q }}
-            </div>
-        {% for c in choix %}
-             {% if c.question == q %}
                 <div>
-                    {{ c.valeur }}
+                    {{ q }}
                 </div>
-            {% endif %}
+                {% if q.isLibre %}
+                    <input type="text" name="{{ q.id }}"/>
+                {% else %}
+                    {% for c in choix %}
+                         {% if c.question == q %}
+                            <div>
+                                <input type="radio" name="{{ q.id }}" value="{{ c.id }}"> {{ c.valeur }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <br/>
         {% endfor %}
         </div>
-        <br/>
-    {% endfor %}
-
-
-</div>
+    <input type="submit" value="Valider">
+    </form>
 </body>
 </html>
