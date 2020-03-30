@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CyberSophie</title>
 </head>
 <body>
+<div>
+    {% for q in questions %}
+        <div>
+            <div>
+                {{ q }}
+            </div>
+        {% for c in choix %}
+             {% if c.question == q %}
+                <div>
+                    {{ c.valeur }}
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <br/>
+    {% endfor %}
 
+
+</div>
 </body>
 </html>
