@@ -20,5 +20,6 @@ from app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', sondage),
-    path('complete', resultat)
+    path('complete', resultat),
+    path('stats', stats)
 ]
