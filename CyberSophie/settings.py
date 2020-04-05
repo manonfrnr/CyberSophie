@@ -25,7 +25,7 @@ SECRET_KEY = 'ol)d482t-shzvya^j4yj8k=+3_6mlma5m3*^fjnip3t9&wdr(s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "192.168.0.128", "cybersophie.doudou.systems"]
 
 
 # Application definition
