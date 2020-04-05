@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>CyberSophie</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<form action="/complete" method="post"> {% csrf_token %}
-    <div style="margin:10px 10px 10px 10px">
-        {% for q in questions %}
-            <div>
+<center>
+    <div class="card" style="width: 50rem;margin-top:20px">
+      <!--<img class="card-img-top" src="..." alt="CyberSophie">-->
+      <div class="card-body">
+        <h5 class="card-title">CyberSophie - Questionnaire</h5>
+        <p class="card-text">CyberSophie s'occupe de toi pendant le confinement ! Répond de manière anonyme à ce questionnaire de moral. N'hésite pas à nous laisser ton adresse e-mail dans le cas où tu souhaiterais obtenir de l'aide ou si tu as besoin de plus d'informations.</p>
+        <form action="/complete" method="post"> {% csrf_token %}
+        <div style="margin:10px 10px 10px 10px">
+            {% for q in questions %}
                 <div>
-                    {{ q }}
+                    <div>
+                        {{ q }}
+                    </div>
+                    {% if q.isLibre %}
+                        <textarea rows="4" cols="50" name="{{ q.id }}"></textarea>
+                    {% else %}
+                        {% for c in choix %}
+                             {% if c.question == q %}
+                                <div>
+                                    <input type="radio" name="{{ q.id }}" value="{{ c.id }}"> {{ c.valeur }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                {% if q.isLibre %}
-                    <input type="text" name="{{ q.id }}"/>
-                {% else %}
-                    {% for c in choix %}
-                         {% if c.question == q %}
-                            <div>
-                                <input type="radio" name="{{ q.id }}" value="{{ c.id }}"> {{ c.valeur }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                <br/>
+            {% endfor %}
             </div>
-            <br/>
-        {% endfor %}
-        </div>
-    <input type="submit" value="Valider">
-    </form>
+            {% if ok %}
+            <div class="alert alert-success" role="alert">
+                Merci d'avoir répondu !
+            </div>
+            {% else %}
+             <input class="btn btn-primary" type="submit" value="Valider">
+          {% endif %}
+        </form>
+      </div>
+    </div>
+</center>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
