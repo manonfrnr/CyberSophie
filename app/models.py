@@ -22,3 +22,4 @@ class Reponse(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     valeur = models.CharField(max_length=1000)
     date = models.DateTimeField(default=timezone.now, verbose_name="Date de la réponse")
+    ip = models.CharField(max_length=30, default="")

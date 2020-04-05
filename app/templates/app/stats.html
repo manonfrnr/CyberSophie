@@ -12,15 +12,15 @@
       <!--<img class="card-img-top" src="..." alt="CyberSophie">-->
       <div class="card-body">
         <h5 class="card-title">CyberSophie - Stats</h5>
-        <p class="card-text">{{ question.enonce }}</p>
-       <p class="card-text">Du {{ start_date }} au {{ end_date }}</p>
+        <p class="card-text">{{ question.enonce }}
+       <br/>Du {{ start_date }} au {{ end_date }}</p>
         <div style="margin:10px 10px 10px 10px">
     {% if reponses %}
-        <li>
+        <ul>
         {% for reponse in reponses %}
-            <ul>{{ reponse.date }} : {{ reponse.valeur }}</ul>
+            <li>{{ reponse.date }} : {{ reponse.valeur }}</li>
         {% endfor %}
-        </li>
+        </ul>
     {% else %}
     <canvas id="pie-chart"></canvas>
 

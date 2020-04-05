@@ -4,6 +4,8 @@ from .models import *
 
 # Create your views here.
 def sondage(request):
+    if len(Reponse.objects.filter(date__gt=timezone.now() - timezone.timedelta(days=1), ip=get_client_ip(request))) > 0:
+        return render(request, 'app/sondage.html', {"ok": "ok"})
     return render(request, 'app/sondage.html', {'questions': Question.objects.all(), "choix": Choix.objects.all()})
 
 def resultat(request):
@@ -24,20 +26,20 @@ def resultat(request):
                 if not q.isLibre:
                     print(q, v, "libre not found")
                     continue
-            r = Reponse(question=q, valeur=v)
+            r = Reponse(question=q, valeur=v, ip=get_client_ip(request))
             r.save()
         except:
             continue
     return render(request, 'app/sondage.html', {"ok": "ok"})
 
-def stats(request):
+def stats(request, q, delta):
     if not request.user.is_authenticated:
         return Http404("Not found")
     labels = []
     data = []
 
-    question_id = 1
-    start_date = timezone.now() - timezone.timedelta(days=1)
+    question_id = q
+    start_date = timezone.now() - timezone.timedelta(days=delta)
     end_date = timezone.now()
     question = Question.objects.get(id=question_id)
     if not question.isLibre:
@@ -60,10 +62,18 @@ def stats(request):
             'data': data,
         })
     else:
-        responses = Reponse.objects.filter(questio=question, date__lt=end_date, date__gt=start_date)
+        responses = Reponse.objects.filter(question=question, date__lt=end_date, date__gt=start_date)
         return render(request, 'app/stats.html', {
             'start_date': start_date,
             'end_date': end_date,
             'question': question,
             'reponses': responses,
         })
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
