@@ -6,14 +6,13 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<center>
     <div class="row">
   <div class="col">
-    <div class="card" style="margin-top:20px">
+    <div class="card text-center" style="margin:20px">
       <!--<img class="card-img-top" src="..." alt="CyberSophie">-->
       <div class="card-body">
         <h5 class="card-title">CyberSophie - Questionnaire</h5>
-        <p class="card-text">CyberSophie s'occupe de toi pendant le confinement !<br/>Répond de manière anonyme à ce questionnaire de moral.</br>N'hésite pas à nous laisser ton adresse e-mail dans le cas où tu souhaiterais obtenir de l'aide ou si tu as besoin de plus d'informations.</p>
+        <p class="card-text">CyberSophie s'occupe de toi pendant le confinement ! Répond de manière anonyme à ce questionnaire de moral. N'hésite pas à nous laisser ton adresse e-mail dans le cas où tu souhaiterais obtenir de l'aide ou si tu as besoin de plus d'informations.</p>
         <form action="/complete" method="post"> {% csrf_token %}
         <div style="margin:10px 10px 10px 10px">
             {% for q in questions %}
@@ -48,7 +47,6 @@
     </div>
   </div>
     </div>
-</center>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
